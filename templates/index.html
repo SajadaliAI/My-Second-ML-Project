@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Recommendation System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #27ae60;
+            outline: none;
+            box-shadow: 0 0 5px rgba(39, 174, 96, 0.3);
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: none;
+            background-color: #27ae60;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #219150;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #34495e;
+        }
+
+        .emoji-label::before {
+            content: attr(data-icon) " ";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌿 Smart Crop Recommendation</h2>
+        <form action="{{ url_for('predict') }}" method="post">
+            <input type="text" name="N" placeholder="🌱 Nitrogen (N)" required>
+            <input type="text" name="P" placeholder="🌾 Phosphorus (P)" required>
+            <input type="text" name="K" placeholder="🌻 Potassium (K)" required>
+            <input type="text" name="temperature" placeholder="🌡️ Temperature (°C)" required>
+            <input type="text" name="humidity" placeholder="💧 Humidity (%)" required>
+            <input type="text" name="ph" placeholder="⚗️ pH Level" required>
+            <input type="text" name="rainfall" placeholder="🌧️ Rainfall (mm)" required>
+            <input type="submit" value="🔍 Predict Crop">
+        </form>
+
+        {% if result %}
+            <div class="result">🌿 Recommended Crop: <br> <strong>{{ result }}</strong></div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
